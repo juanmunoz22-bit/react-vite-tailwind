@@ -1,4 +1,7 @@
 import { useContext } from "react"
+
+import { ShoppingBagIcon } from "@heroicons/react/24/solid"
+
 import { ShoppingCartContext } from "../../Context"
 import NavItem from "../NavItem"
 
@@ -64,8 +67,15 @@ const Navbar = () => {
             Sign in
           </NavItem>
         </li>
-        <li>
-            Cart {context.count}
+        <li 
+          className="flex item-center cursor-pointer"
+          onClick={() => {
+            if (context.isProductDetailOpen) context.closeProductDetail()
+            context.openCheckoutMenu()
+          }}
+        >
+            <ShoppingBagIcon className="text-black w-6 h-6" /> 
+            <div>{context.count}</div>
         </li>
       </ul>
     </nav>
