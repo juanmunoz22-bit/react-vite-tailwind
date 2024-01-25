@@ -9,25 +9,17 @@ function Home() {
   const context = useContext(ShoppingCartContext)
 
   const renderView = () => {
-    if (context.searchByTitle?.length > 0) {
-      if (context.filteredItems?.length > 0) {
-        return (
-          context.filteredItems?.map(item => (
-            <Card key={item.id} data={item} />
-          ))
-        )
-      } else {
-        return (
-          <div className="flex items-center justify-center relative w-80 mb-6">
-            <h1 className="font-medium text-xl">No products found</h1>
-          </div>
-        )
-      }
-    } else {
+    if (context.filteredItems?.length > 0) {
       return (
-        context.items?.map(item => (
+        context.filteredItems?.map(item => (
           <Card key={item.id} data={item} />
         ))
+      )
+    } else {
+      return (
+        <div className="flex items-center justify-center relative w-80 mb-6">
+          <h1 className="font-medium text-xl">No products found</h1>
+        </div>
       )
     }
   }

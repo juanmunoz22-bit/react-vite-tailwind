@@ -1,9 +1,9 @@
 import { useContext } from "react"
 
-import { ShoppingBagIcon } from "@heroicons/react/24/solid"
+import { NavLink } from "react-router-dom"
 
+import { ShoppingBagIcon } from "@heroicons/react/24/solid"
 import { ShoppingCartContext } from "../../Context"
-import NavItem from "../NavItem"
 
 const Navbar = () => {
   const context = useContext(ShoppingCartContext)
@@ -13,69 +13,109 @@ const Navbar = () => {
     <nav className="flex justify-between items-center fixed z-10 top-0 w-full py-5 px-8 text-sm font-light">
       <ul className="flex items-center gap-3">
         <li className="font-semibold text-lg">
-          <NavItem to='/'>
+          <NavLink to='/'>
             Shopi
-          </NavItem>
+          </NavLink>
         </li>
         <li>
-          <NavItem to='/' activeStyle={activeStyle}>
+          <NavLink
+            to='/'
+            onClick={() => context.setSearchByCategory('')}
+            className={({ isActive }) =>
+              isActive ? activeStyle : undefined
+            }
+          >
             All
-          </NavItem>
+          </NavLink>
         </li>
         <li>
-          <NavItem to='/clothes' activeStyle={activeStyle}>
-            Clothes
-          </NavItem>
+          <NavLink
+            to='/shoes'
+            onClick={() => context.setSearchByCategory('shoes')}
+            className={({ isActive }) =>
+              isActive ? activeStyle : undefined
+            }
+          >
+            Shoes
+          </NavLink>
         </li>
         <li>
-          <NavItem to='/electronics' activeStyle={activeStyle}>
+          <NavLink
+            to='/electronics'
+            onClick={() => context.setSearchByCategory('electronics')}
+            className={({ isActive }) =>
+              isActive ? activeStyle : undefined
+            }
+          >
             Electronics
-          </NavItem>
+          </NavLink>
         </li>
         <li>
-          <NavItem to='/furnitures' activeStyle={activeStyle}>
-            Furnitures
-          </NavItem>
+          <NavLink
+            to='/miscellaneous'
+            onClick={() => context.setSearchByCategory('miscellaneous')}
+            className={({ isActive }) =>
+              isActive ? activeStyle : undefined
+            }
+          >
+            Miscellaneous
+          </NavLink>
         </li>
         <li>
-          <NavItem to='/toys' activeStyle={activeStyle}>
-            Toys
-          </NavItem>
-        </li>
-        <li>
-          <NavItem to='/others' activeStyle={activeStyle}>
+          <NavLink
+            to='/others'
+            onClick={() => context.setSearchByCategory('others')}
+            className={({ isActive }) =>
+              isActive ? activeStyle : undefined
+            }
+          >
             Others
-          </NavItem>
+          </NavLink>
         </li>
       </ul>
       <ul className="flex items-center gap-3">
-        <li className="text-black/60">
+        <li className='text-black/60'>
           juan@gmail.com
         </li>
         <li>
-          <NavItem to='/my-orders' activeStyle={activeStyle}>
+          <NavLink
+            to='/my-orders'
+            className={({ isActive }) =>
+              isActive ? activeStyle : undefined
+            }
+          >
             My Orders
-          </NavItem>
+          </NavLink>
         </li>
         <li>
-          <NavItem to='/my-account' activeStyle={activeStyle}>
+          <NavLink
+            to='/my-account'
+            className={({ isActive }) =>
+              isActive ? activeStyle : undefined
+            }
+          >
             My Account
-          </NavItem>
+          </NavLink>
         </li>
         <li>
-          <NavItem to='/sign-in' activeStyle={activeStyle}>
+          <NavLink
+            to='/sign-in'
+            className={({ isActive }) =>
+              isActive ? activeStyle : undefined
+            }
+          >
             Sign in
-          </NavItem>
+          </NavLink>
         </li>
-        <li 
+        <li
           className="flex item-center cursor-pointer"
           onClick={() => {
             if (context.isProductDetailOpen) context.closeProductDetail()
             context.openCheckoutMenu()
           }}
         >
-            <ShoppingBagIcon className="text-black w-6 h-6" /> 
-            <div>{context.count}</div>
+          <ShoppingBagIcon className="text-black w-6 h-6" />
+          <div>{context.cartProducts.length}</div>
         </li>
       </ul>
     </nav>
