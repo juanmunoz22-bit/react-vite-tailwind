@@ -1,9 +1,16 @@
 /* eslint-disable react/prop-types */
 import { createContext, useState, useEffect } from 'react'
 
+// import { initializeLocalStorage } from '../Utils'
+
 export const ShoppingCartContext = createContext()
 
 export const ShoppingCartProvider = ({ children }) => {
+  // Account
+  const [account, setAccount] = useState({})
+
+  // Sign Out
+  const [signOut, setSignOut] = useState(false)
 
   // Cart Counter
   const [count, setCount] = useState(0)
@@ -70,6 +77,7 @@ export const ShoppingCartProvider = ({ children }) => {
     if (!searchByTitle && searchByCategory) setFilteredItems(filterBy('BY_CATEGORY', items, searchByTitle, searchByCategory))
     if (searchByTitle && searchByCategory) setFilteredItems(filterBy('BY_TITLE_AND_CATEGORY', items, searchByTitle, searchByCategory))
     if (!searchByTitle && !searchByCategory) setFilteredItems(filterBy(null, items, searchByTitle, searchByCategory))
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [items, searchByTitle, searchByCategory])
 
   console.log("Search by title: ", searchByTitle)
@@ -98,6 +106,10 @@ export const ShoppingCartProvider = ({ children }) => {
       setFilteredItems,
       searchByCategory,
       setSearchByCategory,
+      account,
+      setAccount,
+      signOut,
+      setSignOut
     }}>
       {children}
     </ShoppingCartContext.Provider>
